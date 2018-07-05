@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="com.xxzx.entity">
+	<class name="Department" table="Department">
+		<id name="did" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="dname" column="dname" length="50"/>
+		<property name="dmore" column="more" length="20"/>
+        
+        <set name="userinfos" table="Department">
+        	<key column="departmentid" ></key>
+			<one-to-many class="com.xxzx.entity.Userinfo"  />        	
+        </set>
+        
+        
+	</class>
+</hibernate-mapping>

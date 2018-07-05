@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.xxzx.entity.Gpsinfo" table="gpsinfo">
+		<id name="gid" type="java.lang.Integer">
+            <column name="gid" />
+            <generator class="native" />
+        </id>
+        
+			<property name="longitude" column="longitude" type="java.lang.Double"
+			/>
+			<property name="latitude" column="latitude" type="java.lang.Double"
+			/>
+			<property name="gdate" column="gdate" />
+		
+        
+        <!-- 关联关系映射 -->
+       <many-to-one name="shoesStatus" column="sid" class="com.xxzx.entity.ShoesStatus"></many-to-one>
+		
+
+	</class>
+</hibernate-mapping>

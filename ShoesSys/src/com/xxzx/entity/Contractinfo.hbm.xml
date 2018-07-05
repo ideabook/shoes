@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.xxzx.entity.Contractinfo" table="contractinfo">
+
+		<id name="cid" type="java.lang.Integer">
+			<column name="cid" />
+			<generator class="native" />
+		</id>
+		<property name="cno" column="cno" type="java.lang.String"
+			length="20" />
+		<property name="cname" column="cname" type="java.lang.String"
+			length="20" />
+
+		<property name="ca" column="ca" type="java.lang.String"
+			length="20" />
+		<property name="ccount" column="ccount" type="java.lang.Double" />
+		<property name="ctime" column="ctime" />
+		<property name="cworktime" column="cworktime" />
+		<property name="cfinishtime" column="cfinishtime" />
+		<property name="coperator" column="coperator" type="java.lang.String"
+			length="10" />
+		<property name="cpayinfo" column="cpayinfo" type="java.lang.String"
+			length="500" />
+
+		<property name="cpaid" column="cpaid" type="java.lang.Double" />
+		<property name="cunpaid" column="cunpaid" type="java.lang.Double" />
+		<property name="cpayprogress" column="cpayprogress" type="java.lang.String"
+			length="50" />
+		<property name="constatue" column="constatue" type="java.lang.String"
+			length="20" />
+		<property name="conbzj" column="conbzj" type="java.lang.Double" />
+		<property name="conbzjstatue" column="conbzjstatue" type="java.lang.String"
+			length="20" />
+
+		<property name="cqamonth" column="cqamonth" type="java.lang.Integer" />
+		<property name="cisqa" column="cisqa" type="java.lang.Integer" />
+		<property name="cregtime" column="cregtime" />
+		<property name="cqadate" column="cqadate" />
+		<property name="cqacount" column="cqacount" type="java.lang.Double" />
+		<property name="cdepartment" column="cdepartment" type="java.lang.Integer" />
+		<property name="csuboffice" column="csuboffice" type="java.lang.String"
+			length="30" />
+		<property name="cuser" column="cuser" type="java.lang.String"
+			length="20" />
+		<property name="cmore" column="cmore" type="java.lang.String"
+			length="200" />
+
+		<!-- 关联关系映射 -->
+		<set name="payinfos" table="Payinfo" lazy="true" cascade="all">
+			<key column="cid"></key>
+			<one-to-many class="com.xxzx.entity.Payinfo" />
+		</set>
+		<!-- 多对一 -->
+		<many-to-one name="confrom" column="cfrom" />
+		<many-to-one name="companyinfo" column="cb" />
+		<many-to-one name="contype" column="ctype" />
+		<many-to-one name="fundtype" column="cpayfrom" />
+		<many-to-one name="userinfo" column="crealuser" />
+	</class>
+</hibernate-mapping>

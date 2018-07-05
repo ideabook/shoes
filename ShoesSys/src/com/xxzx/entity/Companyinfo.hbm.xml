@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xxzx.entity.Companyinfo" table="companyinfo">
+        <id name="comid" type="java.lang.Integer">
+            <column name="comid" />
+            <generator class="native" />
+        </id>
+        <property name="comname" type="java.lang.String" length="30">
+            <column name="comname" />
+        </property>
+        <property name="comaddress" type="java.lang.String" length="30">
+            <column name="comaddress" />
+        </property>
+        <property name="combank" type="java.lang.String" length="30">
+            <column name="combank" />
+        </property>
+         <property name="comcontacts" type="java.lang.String" length="20">
+            <column name="comcontacts" />
+        </property>
+         <property name="comtel" type="java.lang.String" length="20">
+            <column name="comtel" />
+        </property>
+         <property name="comregtime" length="20">
+            <column name="comregtime" />
+        </property>
+        <property name="commore" type="java.lang.String" length="30">
+            <column name="commore" />
+        </property>
+        
+        <!-- 关联关系映射 -->
+        <set name="contractinfos" table="companyinfo" lazy="true">
+			<key column="cb"></key>      
+			
+			<one-to-many class="com.xxzx.entity.Contractinfo" />  
+        </set>
+     
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" 
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 字符集 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!--当struts.xml配置文件修改后，系统是否重新加载该文件，开发阶段打开此功能 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- struts2生成的表单标签使用默认的主题，即不附加格式化标签 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 告诉struts action类去spring容器里面去取 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 上传临时路径 -->
+	<constant name="struts.multipart.saveDir" value="/upload" />
+	<!-- 访问后缀 -->
+	<constant name="struts.action.extension" value="do,action,html," />
+
+
+
+
+
+	<!-- 登录页面 -->
+	<!-- 用户登陆 -->
+	<package name="login1" namespace="/" extends="struts-default">
+		
+		<action name="shoes_update" class="shoesAction" method="addstep">
+			<result name="addsuccess" type="redirectAction" >shoes_findall.action
+			</result>
+		</action>
+		<action name="shoes_findall" class="shoesAction" method="findAllShoes">
+			<result name="find">${pageContext.request.contextPath}/WEB-INF/shoes/showall.jsp
+			</result>
+		</action>
+		<action name="shoes_toadd" class="shoesAction" method="toadd">
+			<result name="toadd">${pageContext.request.contextPath}/WEB-INF/shoes/addstep.jsp
+			</result>
+		</action>
+		<action name="shoes_toadduser" class="shoesAction" method="touseradd">
+			<result name="touseradd">${pageContext.request.contextPath}/WEB-INF/shoes/adduser1.jsp
+			</result>
+		</action>
+		<action name="shoes_adduser" class="shoesAction" method="userreg">
+			
+		</action>
+		<action name="shoes_adduser2" class="shoesAction" method="userreg2">
+			<result name="tologin">ssologin.jsp
+			</result>
+			<result name="reg">${pageContext.request.contextPath}/WEB-INF/shoes/adduser1.jsp
+			</result>
+		</action>
+		<action name="shoes_togps" class="shoesAction" method="togps">
+			<result name="togps">${pageContext.request.contextPath}/WEB-INF/shoes/showgps.jsp
+			</result>
+		</action>
+		
+	
+		
+	</package>
+	<!-- 登录页 -->
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="login_*" class="userinfoAction" method="{1}">
+			<result name="success" type="redirectAction">shoes_findall.action
+			</result>
+			<result name="update" type="redirectAction">login_find.action
+			</result>
+			<result name="find">${pageContext.request.contextPath}/WEB-INF/show/showuser.jsp
+			</result>
+			<result name="edit">${pageContext.request.contextPath}/WEB-INF/edit/edit.jsp
+			</result>
+			<result name="input">ssologin.jsp</result>
+			<result name="url">WEB-INF/${url}</result>
+		</action>
+		<action name="getVerify" class="getVerifyAction" method="getVerifyImpage">
+		</action>
+		<action name="getQRcode" class="getQRcodeAction" method="getQRcodeImpage">
+		</action>
+		
+
+	</package>
+	<!-- 主页面 -->
+	<package name="contract" extends="struts-default" namespace="/">
+		<action name="contractinfo_*" class="contractinfoAction"
+			method="{1}">
+			<result name="addSuccess" type="redirectAction">contractinfo_findAll.action
+			</result>
+			<result name="addSuccess2" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="delete" type="redirectAction">contractinfo_findAll.action
+			</result>
+			<result name="delete2" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="update" type="redirectAction">contractinfo_findAll.action
+			</result>
+			<result name="update2" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="findAll">${pageContext.request.contextPath}/WEB-INF/index.jsp
+			</result>
+			<result name="findAll2">${pageContext.request.contextPath}/WEB-INF/show/showcontract.jsp
+			</result>
+			<result name="toindex">${pageContext.request.contextPath}/WEB-INF/index.jsp
+			</result>
+			<result name="edit">${pageContext.request.contextPath}/WEB-INF/edit/editcontract.jsp
+			</result>
+			<result name="edit2">${pageContext.request.contextPath}/WEB-INF/edit/editcontract2.jsp
+			</result>
+			<result name="toadd">${pageContext.request.contextPath}/WEB-INF/add/addcontract.jsp
+			</result>
+			<result name="toadd2">${pageContext.request.contextPath}/WEB-INF/add/addcontract2.jsp
+			</result>
+			<result name="toshow" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="findinfo">${pageContext.request.contextPath}/WEB-INF/show/contractinfo.jsp
+			</result>
+			<result name="input">${pageContext.request.contextPath}/WEB-INF/index.jsp
+			</result>
+
+		</action>
+
+
+		<action name="company_*" class="companyAction" method="{1}">
+			<result name="addSuccess" type="redirectAction">company_findAll.action</result>
+			<result name="input">ssologin.jsp</result>
+			<result name="findAll">${pageContext.request.contextPath}/WEB-INF/show/companyinfo.jsp
+			</result>
+			<result name="edit">${pageContext.request.contextPath}/WEB-INF/edit/editcompany.jsp
+			</result>
+			<result name="update" type="redirectAction">company_findAll.action
+			</result>
+			<result name="delete" type="redirectAction">company_findAll.action
+			</result>
+			<result name="toadd">${pageContext.request.contextPath}/WEB-INF/add/addcompany.jsp
+			</result>
+		</action>
+
+		<!-- 合同来源 -->
+		<action name="contype_*" class="contypeAction" method="{1}">
+			<result name="addSuccess" type="redirectAction">contype_findAll.action</result>
+			<result name="update" type="redirectAction">contype_findAll.action</result>
+			<result name="findAll">WEB-INF/show/showcontype.jsp</result>
+			<result name="input">ssologin.jsp</result>
+			<result name="toadd">WEB-INF/add/addcontype.jsp</result>
+			<result name="edit">WEB-INF/add/editcontype.jsp</result>
+			<result name="delete" type="redirectAction">contype_findAll.action</result>
+		</action>
+		<action name="confrom_*" class="confromAction" method="{1}">
+			<result name="addSuccess" type="redirectAction">confrom_findAll.action</result>
+			<result name="update" type="redirectAction">confrom_findAll.action</result>
+			<result name="delete" type="redirectAction">confrom_findAll.action</result>
+			<result name="findAll">WEB-INF/show/showconfrom.jsp</result>
+			<result name="input">ssologin.jsp</result>
+			<result name="edit">WEB-INF/edit/editconfrom.jsp</result>
+			<result name="toadd">WEB-INF/edit/addconfrom.jsp</result>
+		</action>
+		<action name="fundtype_*" class="fundtypeAction" method="{1}">
+			<result name="addSuccess" type="redirectAction">fundtype_findAll.action
+			</result>
+			<result name="update" type="redirectAction">fundtype_findAll.action</result>
+			<result name="delete" type="redirectAction">fundtype_findAll.action</result>
+			<result name="findAll">WEB-INF/show/showfundtype.jsp</result>
+			<result name="input">ssologin.jsp</result>
+			<result name="edit">WEB-INF/edit/editfundtype.jsp</result>
+			<result name="find">WEB-INF/show/fundtypeinfo.jsp</result>
+			<result name="toadd">WEB-INF/add/addfundtype.jsp</result>
+		</action>
+		<action name="pay_*" class="payAction" method="{1}">
+			<result name="addSuccess" type="redirectAction">pay_findAll.action</result>
+			<result name="delete" type="redirectAction">pay_findAll.action</result>
+			<result name="toadd">${pageContext.request.contextPath}/WEB-INF/add/addpay.jsp
+			</result>
+			<result name="findAll">${pageContext.request.contextPath}/WEB-INF/show/showpay.jsp
+			</result>
+			<result name="input">ssologin.jsp</result>
+		</action>
+		<action name="paymode_*" class="paymodeAction" method="{1}">
+			<result name="addSuccess" type="redirectAction">paymode_findAll.action</result>
+			<result name="delete" type="redirectAction">paymode_findAll.action</result>
+			<result name="toadd">${pageContext.request.contextPath}/WEB-INF/add/addpaymode.jsp
+			</result>
+			<result name="findAll">${pageContext.request.contextPath}/WEB-INF/show/showpaymode.jsp
+			</result>
+			<result name="input">ssologin.jsp</result>
+		</action>
+		<action name="getCount" class="countAction" method="counttotal">
+		</action>
+	</package>
+	<!-- Add action -->
+	<package name="addcontract" namespace="/add" extends="struts-default">
+		<action name="contractinfo_*" class="contractinfoAction"
+			method="{1}">
+			
+			<result name="addSuccess" type="redirectAction">contractinfo_findAll.action
+			</result>
+			<result name="addSuccess2" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="delete" type="redirectAction">contractinfo_findAll.action
+			</result>
+			<result name="delete2" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="update" type="redirectAction">contractinfo_findAll.action
+			</result>
+			<result name="update2" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="findAll">${pageContext.request.contextPath}/WEB-INF/index.jsp
+			</result>
+			<result name="findAll2">${pageContext.request.contextPath}/WEB-INF/show/showcontract.jsp
+			</result>
+			<result name="toindex">${pageContext.request.contextPath}/WEB-INF/index.jsp
+			</result>
+			<result name="edit">${pageContext.request.contextPath}/WEB-INF/edit/editcontract.jsp
+			</result>
+			<result name="edit2">${pageContext.request.contextPath}/WEB-INF/edit/editcontract2.jsp
+			</result>
+			<result name="toadd">${pageContext.request.contextPath}/WEB-INF/add/addcontract.jsp
+			</result>
+			<result name="toadd2">${pageContext.request.contextPath}/WEB-INF/add/addcontract2.jsp
+			</result>
+			<result name="toshow" type="redirectAction">contractinfo_findAll2.action
+			</result>
+			<result name="findinfo">${pageContext.request.contextPath}/WEB-INF/show/contractinfo.jsp
+			</result>
+			<result name="input">${pageContext.request.contextPath}/WEB-INF/index.jsp
+			</result>
+			
+			
+		</action>
+
+
+	</package>
+
+
+	<!-- 上传目录 -->
+	<package name="file" namespace="/file" extends="struts-default">
+		<action name="file_*" class="fileAction" method="{1}">
+
+			<result name="ok">${pageContext.request.contextPath}/WEB-INF/show/show.jsp
+			</result>
+			<result name="toadd">${pageContext.request.contextPath}/WEB-INF/add/fileupload.jsp
+			</result>
+			<result name="findAll">${pageContext.request.contextPath}/WEB-INF/show/showpay.jsp
+			</result>
+			<result name="input">login.jsp</result>
+			<interceptor-ref name="fileUpload">
+				<!-- 设置文件上传大小 -->
+				<param name="maximumSize">409600</param>
+				<!-- 设置文件上传类型 <param name="allowedTypes"> application/vnd.ms-powerpoint 
+					</param> -->
+			</interceptor-ref>
+			<!-- 自定义了拦截器后必手动定义默认的拦截器，否则默认的拦截器不会被执行 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+	</package>
+
+
+</struts>

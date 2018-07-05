@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ShoesSys"
+  id="myeclipse.1529851251123"
+  context-root="/ShoesSys"
+  j2ee-spec="5.0"
+  archive="ShoesSys.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

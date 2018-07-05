@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.xxzx.entity.Fileinfo" table="fileinfo">
+		<id name="fileid" type="java.lang.Integer">
+			<column name="fileid" />
+			<generator class="native" />
+		</id>
+		
+		</property>
+		<property name="filepath" type="java.lang.String" length="20">
+			<column name="filepath" />
+		</property>
+		<property name="filemore" type="java.lang.String" length="200">
+			<column name="filemore" />
+
+		</property>
+		<property name="fileuptime" column="fileuptime" />
+		<property name="filename" column="filename"></property>
+		<property name="filetype" column="filetype"></property>
+
+		<!-- 关联关系映射 -->
+
+	</class>
+</hibernate-mapping>

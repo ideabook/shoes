@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xxzx.entity.LoginLog" table="loginlog">
+        <id name="lid" type="java.lang.Integer">
+            <column name="lid" />
+            <generator class="native" />
+        </id>
+        <property name="uid" type="java.lang.Integer">
+            <column name="uid" />
+        </property>
+         <property name="lip" type="java.lang.String" length="20">
+            <column name="lip" />
+        </property>
+        <property name="ldate" column="ldate" />
+        
+        <!-- 关联关系映射 -->
+       
+    </class>
+</hibernate-mapping>

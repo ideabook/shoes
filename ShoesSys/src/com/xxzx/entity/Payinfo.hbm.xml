@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xxzx.entity.Payinfo" table="payinfo">
+        <id name="pid" type="java.lang.Integer">
+            <column name="pid" />
+            <generator class="native" />
+        </id>
+        
+        <property name="pdate" column="pdate" />
+        <property name="ptotal" column="ptotal" type="java.lang.Double" />
+        <property name="pbankno" column="pbankno" type="java.lang.String"
+			length="20" />
+			<property name="ppay" column="ppay" type="java.lang.Double"
+			/>
+		<property name="pfileid" column="pfileid" update="false" insert="false" type="java.lang.Integer" />
+		<property name="pregtime" column="pregtime" />
+		
+         <property name="poperator" type="java.lang.String" length="200">
+            <column name="poperator" />
+        </property>
+        
+        <!-- 关联关系映射 -->
+       <many-to-one name="contractinfo" column="cid" class="com.xxzx.entity.Contractinfo"></many-to-one>
+		
+    </class>
+</hibernate-mapping>

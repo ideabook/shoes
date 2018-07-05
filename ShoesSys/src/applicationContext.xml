@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 引入外部属性文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<!-- 配置连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost/shoesdb?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="qiao"></property>
+
+
+	</bean>
+	<!-- 配置hibernate的相关属性 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 配置hibernate属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop><!-- 有表自动更新表结构，没有就创建表 -->
+			</props>
+		</property>
+		<!-- 加载映射文件 -->
+
+		<property name="mappingResources">
+			<list>
+				<value>com/xxzx/entity/Confrom.hbm.xml</value>
+				<value>com/xxzx/entity/Companyinfo.hbm.xml</value>
+				<value>com/xxzx/entity/Contractinfo.hbm.xml</value>
+				<value>com/xxzx/entity/Contype.hbm.xml</value>
+				<!-- <value>com/xxzx/entity/Fileinfo.hbm.xml</value> -->
+				<value>com/xxzx/entity/Fundtype.hbm.xml</value>
+				<value>com/xxzx/entity/Payinfo.hbm.xml</value>
+				<value>com/xxzx/entity/Userinfo.hbm.xml</value>
+				<value>com/xxzx/entity/Paymode.hbm.xml</value>
+				<value>com/xxzx/entity/LoginLog.hbm.xml</value>
+				<value>com/xxzx/entity/Role.hbm.xml</value>
+				<value>com/xxzx/entity/Department.hbm.xml</value>
+				<value>com/xxzx/entity/ShoesStatus.hbm.xml</value>
+				<value>com/xxzx/entity/Gpsinfo.hbm.xml</value>
+			</list>
+		</property>
+
+	</bean>
+	<bean class="com.xxzx.util.MyApplicationContextUtil"></bean>
+	<!-- Action,Service 和Dao的配置 -->
+	<!-- 配置Action 的类 -->
+	<bean id="contractinfoAction" class="com.xxzx.action.ContractinfoAction"
+		scope="prototype">
+		<property name="contractinfoService" ref="contractinfoService"></property>
+		<property name="contypeService" ref="contypeService"></property>
+		<property name="companyService" ref="companyService"></property>
+		<property name="fileuploadService" ref="fileuploadService"></property>
+	</bean>
+	<bean id="authAction" class="com.xxzx.action.AuthAction" scope="prototype">
+    	<property name="baseService" ref="baseService" />
+    </bean>
+	<bean id="countAction" class="com.xxzx.action.getCount" scope="prototype">
+		<property name="contractinfoService" ref="contractinfoService"></property>
+	</bean>
+	<bean id="userinfoAction" class="com.xxzx.action.LoginAction"
+		scope="prototype">
+		<property name="userInfoService" ref="userInfoService"></property>
+		<property name="baseService" ref="baseService" />
+	</bean>
+	<bean id="companyAction" class="com.xxzx.action.CompanyAction"
+		scope="prototype">
+		<property name="companyService" ref="companyService"></property>
+	</bean>
+	<bean id="contypeAction" class="com.xxzx.action.ContypeAction"
+		scope="prototype">
+		<property name="contypeService" ref="contypeService"></property>
+	</bean>
+	<bean id="confromAction" class="com.xxzx.action.ConfromAction"
+		scope="prototype">
+		<property name="contypeService" ref="contypeService"></property>
+	</bean>
+	<bean id="fundtypeAction" class="com.xxzx.action.FundtypeAction"
+		scope="prototype">
+		<property name="contractinfoService" ref="contractinfoService"></property>
+		<property name="contypeService" ref="contypeService"></property>
+		<property name="companyService" ref="companyService"></property>
+	</bean>
+	<bean id="msgAction" class="com.xxzx.action.MsgAction" scope="prototype">
+		<property name="contractinfoService" ref="contractinfoService"></property>
+		<property name="msgService" ref="msgService"></property>
+	</bean>
+	<bean id="fileAction" class="com.xxzx.action.FileAction" scope="prototype">
+		<property name="fileuploadService" ref="fileuploadService"></property>
+
+	</bean>
+	<bean id="payAction" class="com.xxzx.action.PayAction" scope="prototype">
+		<property name="contractinfoService" ref="contractinfoService"></property>
+		<property name="contypeService" ref="contypeService"></property>
+	</bean>
+	<bean id="paymodeAction" class="com.xxzx.action.PaymodeAction"
+		scope="prototype">
+		<property name="contractinfoService" ref="contractinfoService"></property>
+		<property name="contypeService" ref="contypeService"></property>
+	</bean>
+	<bean id="getVerifyAction" class="com.xxzx.action.getVerifyAction">
+	</bean>
+	<bean id="getQRcodeAction" class="com.xxzx.action.getQRcodeAction"></bean>
+	<bean id="shoesAction" class="com.xxzx.action.ShoesAction" scope="prototype">
+		<property name="shoesService" ref="shoesService"></property>
+		<property name="contypeService" ref="contypeService"></property>
+
+	</bean>
+	<!-- 配置业务层的类 -->
+	<bean id="shoesService" class="com.xxzx.service.impl.ShoesServiceImpl">
+    	<property name="shoesDao" ref="shoesDao"></property>
+    </bean>
+	 <bean id="baseService" class="com.xxzx.service.BaseService">
+    	<property name="baseDao" ref="baseDao"></property>
+    </bean>
+	
+	<bean id="contractinfoService" class="com.xxzx.service.impl.ContractinfoServiceImpl">
+		<property name="contractinfoDao" ref="contractinfoDao"></property>
+	</bean>
+	<bean id="userInfoService" class="com.xxzx.service.impl.UserInfoServiceImpl">
+		<property name="userInfoDao" ref="userInfoDao"></property>
+	</bean>
+	<bean id="companyService" class="com.xxzx.service.impl.CompanyServiceImpl">
+		<property name="companyDao" ref="companyDao"></property>
+	</bean>
+	<bean id="contypeService" class="com.xxzx.service.impl.ContypeServiceImpl">
+		<property name="contypeDao" ref="contypeDao"></property>
+	</bean>
+	<bean id="msgService" class="com.xxzx.service.impl.MsgServiceImpl">
+		<property name="MsgDao" ref="MsgDao"></property>
+	</bean>
+	<bean id="fileuploadService" class="com.xxzx.service.impl.FileuploadServiceImpl">
+		<property name="fileuploadDao" ref="fileuploadDao"></property>
+
+	</bean>
+	<!-- 配置DAO类 -->
+	<bean id="shoesDao" class="com.xxzx.dao.impl.ShoesDaoImpl">
+    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>
+	
+	<bean id="baseDao" class="com.xxzx.dao.BaseDao">
+    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>
+
+	<bean id="contractinfoDao" class="com.xxzx.dao.impl.ContractinfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userInfoDao" class="com.xxzx.dao.impl.UserInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="companyDao" class="com.xxzx.dao.impl.CompanyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="contypeDao" class="com.xxzx.dao.impl.ContypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="MsgDao" class="com.xxzx.dao.impl.MsgDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="fileuploadDao" class="com.xxzx.dao.impl.FileuploadDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 开启注解事务 -->
+	<!-- tx:annotation-driven transaction-manager="transactionManager" /> -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+		 <!-- 6、TransactionManage -->
+    <bean id="tm" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+		
+		<!-- 7、tx advice -->
+    <tx:advice id="txAdvice" transaction-manager="tm">
+    	<tx:attributes>
+    		<tx:method name="*" isolation="READ_COMMITTED" propagation="REQUIRED"/>
+    	</tx:attributes>
+    </tx:advice>
+    <!-- 8、aop -->
+    <aop:config>
+    	<aop:advisor id="txAdvisor" advice-ref="txAdvice" 
+    		pointcut="execution(* com.xxzx.service.*.*(..))"/>
+    </aop:config>  
+		
+
+	<!-- 下面是shiro 的具体配置 -->
+	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的ShiroDbRealm.java -->
+	<bean id="userRealm" class="com.xxzx.util.CustomRealm"></bean>
+
+	<!-- Shiro默认会使用Servlet容器的Session,可通过sessionMode属性来指定使用Shiro原生Session -->
+	<!-- 即<property name="sessionMode" value="native"/>,详细说明见官方文档 -->
+	<!-- 这里主要是设置自定义的单Realm应用,若有多个Realm,可使用'realms'属性代替 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 注入realm -->
+		<property name="realm" ref="userRealm" />
+	</bean>
+	<!-- Shiro主过滤器本身功能十分强大,其强大之处就在于它支持任何基于URL路径表达式的、自定义的过滤器的执行 -->
+	<!-- Web应用中,Shiro可控制的Web请求必须经过Shiro主过滤器的拦截,Shiro对基于Spring的Web应用提供了完美的支持 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"
+		depends-on="roleOrFilter">
+		<!-- Shiro的核心安全接口,这个属性是必须的 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
+		<property name="loginUrl" value="/ssologin.jsp" />
+		<!-- 登录成功后要跳转的连接(本例中此属性用不到,因为登录成功后的处理逻辑在LoginController里硬编码为main.jsp了) -->
+		<!--  <property name="successUrl" value="/index.jsp"/>-->
+		<!-- 用户访问未对其授权的资源时,所显示的连接 -->
+		<!-- 若想更明显的测试此属性可以修改它的值,如unauthor.jsp,然后用[玄玉]登录后访问/admin/listUser.jsp就看见浏览器会显示unauthor.jsp -->
+		<property name="unauthorizedUrl" value="/login_unauthor.html" />
+		<!-- Shiro连接约束配置,即过滤链的定义 -->
+		<!-- 此处可配合我的这篇文章来理解各个过滤连的作用http://blog.csdn.net/jadyer/article/details/12172839 -->
+		<!-- 下面value值的第一个'/'代表的路径是相对于HttpServletRequest.getContextPath()的值来的 -->
+		<!-- anon：它对应的过滤器里面是空的,什么都没做,这里.do和.jsp后面的*表示参数,比方说login.jsp?main这种 -->
+		<!-- authc：该过滤器下的页面必须验证后才能访问,它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter -->
+		<!-- 添加各种验证过滤器 -->
+		<property name="filters">
+			<map>
+				<entry key="roleOrFilter" value-ref="roleOrFilter" />
+			</map>
+		</property>
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- anon表示此地址不需要任何权限即可访问 -->
+				<!-- 去登陆页面 -->
+				/getVerify.action=anon
+				/ssologin.jsp=anon
+				/login3.action=anon
+				/login_login3.action=anon
+				/login.html= anon
+				/shoes_update.action=anon
+				/shoes_toadduser.action=anon
+				/shoes_adduser2.action=anon
+				<!-- 资源样式 -->
+				/resources/**=anon
+				/data/**=anon
+				/dist/**=anon
+				/js/**=anon
+				/less/**=anon
+				/vendor/**=anon
+
+				<!-- roles[admin] 表示访问此连接需要角色为admin roles["admin,manage"] 表示访问此连接需要角色为manager 
+					且为 manage roleOrFilter["admin,manage"] 表示访问此连接需要角色为manager 或为 manage -->
+				/auth/**=roleOrFilter["admin,manage,custom"]
+				/user/**=roleOrFilter["admin,manage,custom"]
+				/file/**=roleOrFilter["admin,manage,custom"]
+				/edit/**=roleOrFilter["admin,manage"]
+				/delete/**=roleOrFilter["admin,manage"]
+				/role/**=roles[admin]
+				/add/**=roles[admin]
+				/show/**=roles[admin]
+				/add/**=roles[admin]
+				/upload/**=roleOrFilter["admin,manage"]<!--上传目录  -->
+				/index.jsp=roleOrFilter["admin,manage,custom"]
+				<!--所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过登录验证,如果未登录则跳到/login -->
+				/** = roleOrFilter["admin,manage,custom"]
+			</value>
+		</property>
+	</bean>
+
+	<!-- <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" 
+		/> -->
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- 自定义的过滤器，用来判断当前用户是否是roleOrFilter["comm,test"]中的某个角色 -->
+	<bean id="roleOrFilter" class="com.xxzx.util.CustomRolesAuthorizationFilter" />
+
+
+</beans>

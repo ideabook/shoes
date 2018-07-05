@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xxzx.entity.Userinfo" table="userinfo">
+        <id name="uid" type="java.lang.Integer">
+            <column name="uid" />
+            <generator class="native" />
+        </id>
+        <property name="uloginname" type="java.lang.String" length="20">
+            <column name="uloginname" />
+        </property>
+         <property name="upassword" type="java.lang.String" length="20">
+            <column name="upassword" />
+        </property>
+        <property name="ujobid" type="java.lang.String" length="20">
+            <column name="ujobid" />
+        </property>
+        <property name="uname" type="java.lang.String" length="20">
+            <column name="uname" />
+        </property>
+        <property name="udepartment"></property>
+        <property name="ulogintime" column="ulogintime" />
+        
+        <many-to-one name="department" column="departmentid"/>
+        <!-- 关联关系映射 -->
+       <set name="roles" table="user_role" lazy="true">  
+            <key column="user_id" />  
+            <many-to-many column="role_id" class="com.xxzx.entity.Role" />  
+       </set>  
+       <set name="contractinfos" table="userinfo" lazy="true">
+       		<key column="crealuser" />
+       		<one-to-many class="com.xxzx.entity.Contractinfo"/>
+       
+       </set>
+    </class>
+</hibernate-mapping>

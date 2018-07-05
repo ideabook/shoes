@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-6 16:29:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.xxzx.entity.Paymode" table="paymode">
+		<id name="pmid" type="java.lang.Integer">
+			<column name="pmid" />
+			<generator class="native" />
+		</id>
+		<property name="cid" type="java.lang.Integer">
+			<column name="cid" />
+		</property>
+		<property name="pmstep" column="pmstep" type="java.lang.Integer" />
+
+		<property name="pmtype" column="pmtype" type="java.lang.String"
+			length="20" />
+		<property name="pmpercent" column="pmpercent" type="java.lang.Double" />
+		<property name="pmcount" column="pmcount" type="java.lang.Double" />
+		<property name="pmdate" column="pmdate" />
+		<property name="pmstate" column="pmstate" type="java.lang.Integer" />
+		<property name="pmmore" type="java.lang.String" length="200">
+			<column name="pmmore" />
+		</property>
+
+
+
+	</class>
+</hibernate-mapping>
